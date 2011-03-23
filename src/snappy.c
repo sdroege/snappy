@@ -31,8 +31,8 @@
 
 #include "user_interface.h"
 #include "gst_engine.h"
+#include "mpris.h"
 #include "utils.h"
-
 
 static void
 help (const char *argv0)
@@ -49,6 +49,7 @@ main (int argc, char *argv[])
 {
   UserInterface *ui = NULL;
   GstEngine *engine = NULL;
+  MediaPlayer2 *mp_obj = NULL;
   ClutterActor *texture;
   gchar *fileuri;
   int ret = 0;
@@ -128,6 +129,10 @@ main (int argc, char *argv[])
 
   gst_element_set_state (engine->player, GST_STATE_PLAYING);
   engine->playing = TRUE;
+
+  mp_obj = g_new (MediaPlayer2, 1);
+  load_mpris (mp_obj);
+
   clutter_main ();
 
 quit:
