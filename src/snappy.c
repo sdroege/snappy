@@ -44,6 +44,11 @@ help (const char *argv0)
       , argv0);
 }
 
+void open_uri_callback (MediaPlayer2 *self, gpointer user_data)
+{
+  g_print ("received the open-uri signal!\n");
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -132,6 +137,8 @@ main (int argc, char *argv[])
 
   mp_obj = g_new (MediaPlayer2, 1);
   load_mpris (mp_obj);
+  g_signal_connect (mp_obj, "open-uri",
+      G_CALLBACK (open_uri_callback), engine);
 
   clutter_main ();
 
