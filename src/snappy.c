@@ -44,7 +44,7 @@ help (const char *argv0)
       , argv0);
 }
 
-void open_uri_callback (MediaPlayer2 *self, gpointer user_data)
+void open_uri_callback (SnappyMP *self, gpointer user_data)
 {
   g_print ("received the open-uri signal!\n");
 }
@@ -54,7 +54,7 @@ main (int argc, char *argv[])
 {
   UserInterface *ui = NULL;
   GstEngine *engine = NULL;
-  MediaPlayer2 *mp_obj = NULL;
+  SnappyMP *mp_obj = NULL;
   ClutterActor *texture;
   gchar *fileuri;
   int ret = 0;
@@ -135,7 +135,7 @@ main (int argc, char *argv[])
   gst_element_set_state (engine->player, GST_STATE_PLAYING);
   engine->playing = TRUE;
 
-  mp_obj = g_new (MediaPlayer2, 1);
+  mp_obj = g_new0 (SnappyMP, 1);
   load_mpris (mp_obj);
   g_signal_connect (mp_obj, "open-uri",
       G_CALLBACK (open_uri_callback), engine);
